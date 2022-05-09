@@ -1,0 +1,19 @@
+---
+- hosts: localhost 
+  become: yes 
+  gather_facts: no 
+  vars: 
+    host_name: web-server 
+  tasks: 
+  - name: install httpd server 
+    yum: 
+      name: httpd 
+      state: present 
+  - name: copy index home page 
+    template: 
+      src: index.html.j2
+      dest: /var/www/html/index.html 
+  - name: start httpd service 
+    service: 
+      name: httpd 
+      state: restarted
